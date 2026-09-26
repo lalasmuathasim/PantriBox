@@ -3,13 +3,12 @@ import 'package:pantribox_mobile/features/home/application/home_overview.dart';
 
 final homeOverviewProvider = Provider<HomeOverview>((ref) {
   return const HomeOverview(
-    greetingEyebrow: 'Good evening',
-    greeting: 'Hi, PantriBox household',
-    householdLabel: 'Household shopping intelligence in one calm place.',
+    greeting: 'Good evening',
     monthlySpendLabel: '₹18,240',
     estimatedSavingsLabel: '₹1,420',
     activeListName: 'Weekend stock-up',
     activeListItemCount: 8,
+    completedListItemCount: 3,
     recentPurchases: [
       RecentPurchasePreview(
         store: 'DMart',

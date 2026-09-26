@@ -1,23 +1,29 @@
 class HomeOverview {
   const HomeOverview({
-    required this.greetingEyebrow,
     required this.greeting,
-    required this.householdLabel,
-    required this.monthlySpendLabel,
-    required this.estimatedSavingsLabel,
-    required this.activeListName,
-    required this.activeListItemCount,
-    required this.recentPurchases,
+    this.userName,
+    this.monthlySpendLabel,
+    this.estimatedSavingsLabel,
+    this.activeListName,
+    this.activeListItemCount,
+    this.completedListItemCount,
+    this.recentPurchases = const [],
   });
 
-  final String greetingEyebrow;
   final String greeting;
-  final String householdLabel;
-  final String monthlySpendLabel;
-  final String estimatedSavingsLabel;
-  final String activeListName;
-  final int activeListItemCount;
+  final String? userName;
+  final String? monthlySpendLabel;
+  final String? estimatedSavingsLabel;
+  final String? activeListName;
+  final int? activeListItemCount;
+  final int? completedListItemCount;
   final List<RecentPurchasePreview> recentPurchases;
+
+  bool get hasActiveShoppingList =>
+      activeListName != null && activeListItemCount != null;
+
+  bool get hasHouseholdSummary =>
+      monthlySpendLabel != null || estimatedSavingsLabel != null;
 }
 
 class RecentPurchasePreview {

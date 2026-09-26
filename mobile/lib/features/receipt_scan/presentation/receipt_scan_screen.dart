@@ -4,6 +4,7 @@ import 'package:pantribox_mobile/shared/extensions/pantribox_theme_extension.dar
 import 'package:pantribox_mobile/shared/widgets/pantribox_card.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_empty_state.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_primary_button.dart';
+import 'package:pantribox_mobile/shared/widgets/pantribox_page_app_bar.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_screen_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_section_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_secondary_button.dart';
@@ -15,6 +16,7 @@ class ReceiptScanScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const PantriBoxPageAppBar(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(
@@ -78,7 +80,8 @@ class ReceiptScanScreen extends StatelessWidget {
                   const _FlowStep('7', 'Purchase and price observations'),
                   const SizedBox(height: PantriBoxSpacing.sm),
                   PantriBoxStatusChip(
-                    label: 'Receipt text is never the canonical product identity',
+                    label:
+                        'Receipt text is never the canonical product identity',
                     tone: PantriBoxStatusTone.warning,
                     icon: Icons.info_outline_rounded,
                   ),

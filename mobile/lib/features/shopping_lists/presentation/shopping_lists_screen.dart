@@ -32,7 +32,7 @@ class ShoppingListsScreen extends ConsumerWidget {
             title: 'Shopping lists',
             subtitle: 'Structured items now, optimization-ready plans later.',
             trailing: IconButton.filledTonal(
-              onPressed: () => context.go('/lists/create'),
+              onPressed: () => context.push('/lists/create'),
               icon: const Icon(Icons.add_rounded),
               tooltip: 'Create shopping list',
             ),
@@ -70,7 +70,7 @@ class ShoppingListsScreen extends ConsumerWidget {
             (list) => Padding(
               padding: const EdgeInsets.only(bottom: PantriBoxSpacing.md),
               child: PantriBoxCard(
-                onTap: () => context.go('/lists/${list.id}'),
+                onTap: () => context.push('/lists/${list.id}'),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -104,7 +104,7 @@ class ShoppingListsScreen extends ConsumerWidget {
                     PantriBoxPrimaryButton(
                       label: 'Open list',
                       icon: Icons.arrow_forward_rounded,
-                      onPressed: () => context.go('/lists/${list.id}'),
+                      onPressed: () => context.push('/lists/${list.id}'),
                     ),
                   ],
                 ),

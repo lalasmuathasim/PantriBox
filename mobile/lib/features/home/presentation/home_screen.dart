@@ -177,7 +177,7 @@ class _PlanShoppingCard extends StatelessWidget {
         size: 82,
       ),
       onTap: () =>
-          context.go(isContinuing ? '/lists/weekly-basics' : '/lists/create'),
+          context.push(isContinuing ? '/lists/weekly-basics' : '/lists/create'),
       footer: isContinuing
           ? Align(
               alignment: Alignment.centerLeft,

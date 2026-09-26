@@ -8,6 +8,7 @@ import 'package:pantribox_mobile/shared/extensions/pantribox_theme_extension.dar
 import 'package:pantribox_mobile/shared/widgets/pantribox_card.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_empty_state.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_loading_state.dart';
+import 'package:pantribox_mobile/shared/widgets/pantribox_page_app_bar.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_primary_button.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_screen_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_section_header.dart';
@@ -79,7 +80,7 @@ class _ProductLookupScreenState extends ConsumerState<ProductLookupScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const PantriBoxPageAppBar(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(
@@ -103,7 +104,7 @@ class _ProductLookupScreenState extends ConsumerState<ProductLookupScreen> {
                   PantriBoxPrimaryButton(
                     label: 'Scan barcode',
                     icon: Icons.qr_code_scanner_rounded,
-                    onPressed: () => context.push('/scan/product/barcode'),
+                    onPressed: () => context.pushNamed('productBarcodeScanner'),
                   ),
                   const SizedBox(height: PantriBoxSpacing.lg),
                   Text(

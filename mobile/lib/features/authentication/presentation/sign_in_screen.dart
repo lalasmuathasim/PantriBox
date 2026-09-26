@@ -4,6 +4,7 @@ import 'package:pantribox_mobile/app/theme/pantribox_spacing.dart';
 import 'package:pantribox_mobile/shared/extensions/pantribox_theme_extension.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_card.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_primary_button.dart';
+import 'package:pantribox_mobile/shared/widgets/pantribox_page_app_bar.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_screen_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_secondary_button.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_status_chip.dart';
@@ -16,7 +17,7 @@ class SignInScreen extends StatelessWidget {
     final palette = context.pantriBoxTheme;
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const PantriBoxPageAppBar(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(PantriBoxSpacing.lg),
@@ -63,7 +64,7 @@ class SignInScreen extends StatelessWidget {
               onPressed: () {},
             ),
             TextButton(
-              onPressed: () => context.go('/sign-up'),
+              onPressed: () => context.push('/sign-up'),
               child: Text(
                 'Need an account? Sign up',
                 style: Theme.of(

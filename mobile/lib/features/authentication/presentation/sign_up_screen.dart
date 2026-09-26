@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:pantribox_mobile/app/theme/pantribox_spacing.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_card.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_primary_button.dart';
+import 'package:pantribox_mobile/shared/widgets/pantribox_page_app_bar.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_screen_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_status_chip.dart';
 
@@ -12,7 +13,7 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const PantriBoxPageAppBar(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.all(PantriBoxSpacing.lg),

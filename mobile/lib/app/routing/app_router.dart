@@ -76,6 +76,7 @@ GoRouter createRouter(WidgetRef ref, {String initialLocation = '/onboarding'}) {
         routes: [
           GoRoute(
             path: 'barcode',
+            name: 'productBarcodeScanner',
             builder: (context, state) => const ProductBarcodeScanScreen(),
           ),
         ],

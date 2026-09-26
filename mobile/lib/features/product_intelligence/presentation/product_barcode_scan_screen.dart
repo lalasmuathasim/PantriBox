@@ -5,6 +5,7 @@ import 'package:pantribox_mobile/app/theme/pantribox_spacing.dart';
 import 'package:pantribox_mobile/core/capture/product_barcode_scanner.dart';
 import 'package:pantribox_mobile/shared/extensions/pantribox_theme_extension.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_card.dart';
+import 'package:pantribox_mobile/shared/widgets/pantribox_page_app_bar.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_screen_header.dart';
 
 typedef ProductBarcodeScannerBuilder =
@@ -37,9 +38,7 @@ class _ProductBarcodeScanScreenState extends State<ProductBarcodeScanScreen> {
       onBarcodeAccepted(barcode);
       return;
     }
-    context.replace(
-      '/scan/product?barcode=${Uri.encodeQueryComponent(barcode)}',
-    );
+    context.push('/scan/product?barcode=${Uri.encodeQueryComponent(barcode)}');
   }
 
   @override
@@ -51,7 +50,7 @@ class _ProductBarcodeScanScreenState extends State<ProductBarcodeScanScreen> {
             ProductBarcodeScannerPreview(onBarcodeDetected: onBarcodeDetected);
 
     return Scaffold(
-      appBar: AppBar(),
+      appBar: const PantriBoxPageAppBar(),
       body: SafeArea(
         child: ListView(
           padding: const EdgeInsets.fromLTRB(
@@ -113,7 +112,13 @@ class _ProductBarcodeScanScreenState extends State<ProductBarcodeScanScreen> {
             ),
             const SizedBox(height: PantriBoxSpacing.lg),
             TextButton.icon(
-              onPressed: () => context.replace('/scan/product'),
+              onPressed: () {
+                if (context.canPop()) {
+                  context.pop();
+                } else {
+                  context.go('/scan/product');
+                }
+              },
               icon: Icon(Icons.keyboard_alt_outlined, color: palette.primary),
               label: const Text('Enter the barcode manually instead'),
             ),

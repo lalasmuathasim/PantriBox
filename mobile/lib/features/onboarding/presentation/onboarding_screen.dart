@@ -78,12 +78,12 @@ class OnboardingScreen extends StatelessWidget {
             const SizedBox(height: PantriBoxSpacing.xl),
             PantriBoxPrimaryButton(
               label: 'Create account',
-              onPressed: () => context.go('/sign-up'),
+              onPressed: () => context.push('/sign-up'),
             ),
             const SizedBox(height: PantriBoxSpacing.sm),
             PantriBoxSecondaryButton(
               label: 'Sign in',
-              onPressed: () => context.go('/sign-in'),
+              onPressed: () => context.push('/sign-in'),
             ),
             const SizedBox(height: PantriBoxSpacing.lg),
           ],

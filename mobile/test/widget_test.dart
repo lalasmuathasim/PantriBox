@@ -43,12 +43,83 @@ void main() {
     expect(find.text('Shopping lists'), findsOneWidget);
   });
 
+  testWidgets('Sign Up returns to onboarding through the navigation stack', (
+    tester,
+  ) async {
+    await pumpPantriBoxApp(tester);
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(find.text('Create account'), 250);
+    await tester.tap(find.text('Create account'));
+    await tester.pumpAndSettle();
+    expect(find.text('Create account'), findsOneWidget);
+    expect(find.byTooltip('Back'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    expect(find.text('PantriBox'), findsOneWidget);
+  });
+
+  testWidgets('Sign Up returns to Sign In when opened from Sign In', (
+    tester,
+  ) async {
+    await pumpPantriBoxApp(tester);
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(find.text('Sign in'), 250);
+    await tester.tap(find.text('Sign in'));
+    await tester.pumpAndSettle();
+    await tester.drag(find.byType(ListView).last, const Offset(0, -500));
+    await tester.pumpAndSettle();
+    final signUpLink = find.text('Need an account? Sign up').last;
+    await tester.tap(signUpLink);
+    await tester.pumpAndSettle();
+    expect(find.text('Create account'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    expect(find.text('Welcome back'), findsOneWidget);
+  });
+
+  testWidgets('secondary workflows pop back to their immediate parent', (
+    tester,
+  ) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await pumpPantriBoxApp(tester, initialLocation: '/home');
+    await tester.pumpAndSettle();
+
+    expect(find.byTooltip('Back'), findsNothing);
+    await tester.tap(find.text('Scan a receipt'));
+    await tester.pumpAndSettle();
+    expect(find.byTooltip('Back'), findsOneWidget);
+
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    expect(find.text('What would you like to do?'), findsOneWidget);
+  });
+
+  testWidgets('nested list screens pop predictably', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+
+    await pumpPantriBoxApp(tester, initialLocation: '/lists');
+    await tester.pumpAndSettle();
+    await tester.tap(find.byTooltip('Create shopping list'));
+    await tester.pumpAndSettle();
+    expect(find.text('Create shopping list'), findsOneWidget);
+    await tester.tap(find.byTooltip('Back'));
+    await tester.pumpAndSettle();
+    expect(find.text('Shopping lists'), findsOneWidget);
+  });
+
   testWidgets('key routes render under the refreshed theme', (tester) async {
     const routeExpectations = <String, String>{
       '/home': 'What would you like to do?',
       '/lists': 'Shopping lists',
       '/scan': 'What would you like to scan?',
       '/scan/receipt': 'Primary workflow',
+      '/scan/product/barcode': 'Scan a product barcode',
       '/insights': 'Preview containers',
       '/profile': 'PantriBox Household',
       '/sign-in': 'Sign in',
@@ -57,7 +128,11 @@ void main() {
 
     for (final entry in routeExpectations.entries) {
       await pumpPantriBoxApp(tester, initialLocation: entry.key);
-      await tester.pumpAndSettle();
+      if (entry.key == '/scan/product/barcode') {
+        await tester.pump(const Duration(seconds: 2));
+      } else {
+        await tester.pumpAndSettle();
+      }
 
       expect(tester.takeException(), isNull);
       expect(find.text(entry.value), findsOneWidget);

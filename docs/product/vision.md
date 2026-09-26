@@ -52,9 +52,12 @@ Update Price Observations
 
 Manual purchase entry remains an important fallback path.
 
+## Product health intelligence
+
+PantriBox can enrich a canonical packaged Product from a barcode with source-backed package, nutrition, and ingredient information. This supports future health-aware shopping while keeping product information separate from household consumption claims.
+
 ## Future-facing constraints
 
 - Receipt descriptions are not canonical product identities.
 - A purchase does not prove household consumption.
 - AI should orchestrate deterministic tools instead of becoming the source of truth for prices, routes, or optimization.
-

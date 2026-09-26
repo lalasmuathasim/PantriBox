@@ -7,6 +7,14 @@ from sqlalchemy import engine_from_config, pool
 from alembic import context
 from app.core.config.settings import get_settings
 from app.db.base import Base
+from app.domains.households import models as household_models  # noqa: F401
+from app.domains.pricing import models as pricing_models  # noqa: F401
+from app.domains.products import models as product_models  # noqa: F401
+from app.domains.purchases import models as purchase_models  # noqa: F401
+from app.domains.receipts import models as receipt_models  # noqa: F401
+from app.domains.shopping_lists import models as shopping_list_models  # noqa: F401
+from app.domains.stores import models as store_models  # noqa: F401
+from app.domains.users import models as user_models  # noqa: F401
 
 config = context.config
 

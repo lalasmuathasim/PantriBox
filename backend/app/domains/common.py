@@ -42,6 +42,30 @@ class PriceSource(StrEnum):
     ONLINE_STORE = "online_store"
 
 
+class ProductDataSource(StrEnum):
+    OPEN_FOOD_FACTS = "open_food_facts"
+    LABEL_SCAN = "label_scan"
+    OCR = "ocr"
+    VISION_MODEL = "vision_model"
+    USER_CONFIRMED = "user_confirmed"
+    USER_CORRECTED = "user_corrected"
+    MANUAL = "manual"
+
+
+class ProductDataVerificationStatus(StrEnum):
+    UNVERIFIED = "unverified"
+    MACHINE_EXTRACTED = "machine_extracted"
+    USER_CONFIRMED = "user_confirmed"
+    USER_CORRECTED = "user_corrected"
+
+
+class BarcodeLookupState(StrEnum):
+    FOUND = "found"
+    NOT_FOUND = "not_found"
+    INCOMPLETE = "incomplete"
+    STALE = "stale"
+
+
 def id_foreign_key(table_name: str) -> Mapped[str]:
     return mapped_column(ForeignKey(f"{table_name}.id"))
 

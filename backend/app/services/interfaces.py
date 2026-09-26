@@ -3,6 +3,8 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Protocol
 
+from app.domains.products.contracts import ExternalProductData
+
 
 class ReceiptStorage(Protocol):
     def store_receipt(self, household_id: str, file_name: str, content_type: str) -> str: ...
@@ -18,6 +20,10 @@ class ReceiptParser(Protocol):
 
 class ProductNormalizer(Protocol):
     def normalize(self, raw_description: str) -> dict[str, object]: ...
+
+
+class ProductDataProvider(Protocol):
+    def lookup_barcode(self, barcode: str) -> ExternalProductData | None: ...
 
 
 class RoutingProvider(Protocol):

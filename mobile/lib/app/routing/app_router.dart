@@ -8,6 +8,8 @@ import 'package:pantribox_mobile/features/home/presentation/home_screen.dart';
 import 'package:pantribox_mobile/features/insights/presentation/insights_screen.dart';
 import 'package:pantribox_mobile/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:pantribox_mobile/features/profile/presentation/profile_screen.dart';
+import 'package:pantribox_mobile/features/product_intelligence/presentation/product_lookup_screen.dart';
+import 'package:pantribox_mobile/features/product_intelligence/presentation/scan_hub_screen.dart';
 import 'package:pantribox_mobile/features/receipt_scan/presentation/receipt_scan_screen.dart';
 import 'package:pantribox_mobile/features/shopping_lists/presentation/create_shopping_list_screen.dart';
 import 'package:pantribox_mobile/features/shopping_lists/presentation/shopping_list_detail_screen.dart';
@@ -58,8 +60,16 @@ GoRouter createRouter(WidgetRef ref, {String initialLocation = '/onboarding'}) {
         path: '/scan',
         builder: (context, state) => const PantriBoxShell(
           currentLocation: '/scan',
-          child: ReceiptScanScreen(),
+          child: ScanHubScreen(),
         ),
+      ),
+      GoRoute(
+        path: '/scan/receipt',
+        builder: (context, state) => const ReceiptScanScreen(),
+      ),
+      GoRoute(
+        path: '/scan/product',
+        builder: (context, state) => const ProductLookupScreen(),
       ),
       GoRoute(
         path: '/insights',

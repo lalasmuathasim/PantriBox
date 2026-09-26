@@ -17,3 +17,12 @@ uvicorn app.main:app --reload
 pytest
 ```
 
+## Apply migrations
+
+```bash
+alembic upgrade head
+```
+
+## Product barcode lookup
+
+`POST /api/v1/product-intelligence/barcode-lookups` provides cache-first packaged-food lookup through a backend-configured product-data provider. Configure its base URL, identifiable User-Agent, timeout, and cache TTLs with `PANTRIBOX_PRODUCT_*` variables from `.env.example`.

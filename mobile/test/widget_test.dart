@@ -36,7 +36,7 @@ void main() {
     const routeExpectations = <String, String>{
       '/home': 'Monthly grocery spending',
       '/lists': 'Shopping lists',
-      '/scan': 'Turn receipts into price intelligence',
+      '/scan': 'What would you like to scan?',
       '/insights': 'Preview containers',
       '/profile': 'PantriBox Household',
       '/sign-in': 'Sign in',
@@ -61,5 +61,21 @@ void main() {
       Theme.of(context).scaffoldBackgroundColor,
       context.pantriBoxTheme.background,
     );
+  });
+
+  testWidgets('scan hub opens product lookup', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await pumpPantriBoxApp(tester, initialLocation: '/scan');
+    await tester.pumpAndSettle();
+
+    final productLookupButton = find.widgetWithText(
+      ElevatedButton,
+      'Look up product',
+    );
+    await tester.tap(productLookupButton);
+    await tester.pumpAndSettle();
+
+    expect(find.text('Look up a packaged food'), findsOneWidget);
   });
 }

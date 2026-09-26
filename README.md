@@ -14,6 +14,12 @@ PantriBox starts with:
 - Cross-store price comparison
 - Structured shopping optimization
 
+The first Product Health Intelligence capability is also available:
+
+- Cache-first packaged-food barcode lookup
+- Provider-sourced product name, package information, nutrition, and ingredients
+- Provenance and freshness metadata for product information
+
 Future capabilities include AI shopping assistance, route optimization, price intelligence, nutrition-oriented insights, and household trend analysis.
 
 ## Repository structure
@@ -87,6 +93,13 @@ docker compose up -d db
 
 Use `PANTRIBOX_DATABASE_URL` from `.env.example` or your local `.env`.
 
+Apply the versioned schema after starting PostgreSQL:
+
+```bash
+cd backend
+alembic upgrade head
+```
+
 ## Tests
 
 ```bash
@@ -125,5 +138,7 @@ This repository intentionally stops at a production-oriented foundation:
 - PostgreSQL and Docker Compose foundation
 - MCP-ready service boundaries
 - Initial design system, docs, ADRs, specs, and CI
+
+Barcode lookup is implemented as the first product-intelligence phase. Label OCR, camera barcode scanning, health scoring, claim analysis, and health-aware recommendations remain intentionally deferred.
 
 Full product features are intentionally deferred to future specs and PRPs.

@@ -23,6 +23,13 @@ class Settings(BaseSettings):
     allowed_origins: list[str] = Field(default_factory=lambda: ["http://localhost:3000"])
     jwt_audience: str = Field(default="pantribox-mobile")
     jwt_issuer: str = Field(default="pantribox")
+    product_data_provider_base_url: str = Field(default="https://world.openfoodfacts.org")
+    product_data_provider_user_agent: str = Field(
+        default="PantriBox/0.1 (https://github.com/lalasmuathasim/PantriBox)"
+    )
+    product_data_provider_timeout_seconds: float = Field(default=5.0, gt=0)
+    product_lookup_freshness_hours: int = Field(default=720, gt=0)
+    product_lookup_negative_cache_hours: int = Field(default=24, gt=0)
 
     @property
     def is_docs_enabled(self) -> bool:

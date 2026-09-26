@@ -37,6 +37,7 @@ Application + Domain Services
 - Shopping list operations
 - Purchase and receipt workflows
 - Product normalization boundaries
+- Product intelligence lookup, provenance, and freshness boundaries
 - Price observation creation
 - Shopping optimization orchestration boundaries
 
@@ -58,6 +59,7 @@ Application + Domain Services
 - Receipt storage
 - OCR provider
 - Product normalization provider
+- Product-data provider for barcode enrichment
 - Routing provider
 - Future retailer, maps, and AI integrations
 
@@ -73,4 +75,4 @@ Application + Domain Services
 - Receipt text is preserved alongside normalized product references
 - Price observations support multiple sources and confidence values
 - External providers are hidden behind explicit interfaces
-
+- Product nutrition and ingredient data is source-backed; it is not a health score or medical assessment

@@ -48,6 +48,7 @@ void main() {
       '/home': 'What would you like to do?',
       '/lists': 'Shopping lists',
       '/scan': 'What would you like to scan?',
+      '/scan/receipt': 'Primary workflow',
       '/insights': 'Preview containers',
       '/profile': 'PantriBox Household',
       '/sign-in': 'Sign in',

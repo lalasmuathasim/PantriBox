@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pantribox_mobile/app/theme/pantribox_spacing.dart';
 import 'package:pantribox_mobile/features/product_intelligence/application/product_intelligence_repository.dart';
 import 'package:pantribox_mobile/features/product_intelligence/application/product_lookup_models.dart';
@@ -13,7 +14,9 @@ import 'package:pantribox_mobile/shared/widgets/pantribox_section_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_status_chip.dart';
 
 class ProductLookupScreen extends ConsumerStatefulWidget {
-  const ProductLookupScreen({super.key});
+  const ProductLookupScreen({super.key, this.initialBarcode});
+
+  final String? initialBarcode;
 
   @override
   ConsumerState<ProductLookupScreen> createState() =>
@@ -25,6 +28,16 @@ class _ProductLookupScreenState extends ConsumerState<ProductLookupScreen> {
   ProductLookupResult? _result;
   String? _error;
   bool _isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final barcode = widget.initialBarcode;
+    if (barcode != null && barcode.isNotEmpty) {
+      _barcodeController.text = barcode;
+      WidgetsBinding.instance.addPostFrameCallback((_) => _lookupProduct());
+    }
+  }
 
   @override
   void dispose() {
@@ -78,15 +91,26 @@ class _ProductLookupScreenState extends ConsumerState<ProductLookupScreen> {
           children: [
             const PantriBoxScreenHeader(
               eyebrow: 'Product intelligence',
-              title: 'Look up a packaged food',
+              title: 'Scan a packaged food',
               subtitle:
-                  'Enter its barcode to see available nutrition and ingredient information.',
+                  'Scan its barcode to see available nutrition and ingredient information.',
             ),
             const SizedBox(height: PantriBoxSpacing.xl),
             PantriBoxCard(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  PantriBoxPrimaryButton(
+                    label: 'Scan barcode',
+                    icon: Icons.qr_code_scanner_rounded,
+                    onPressed: () => context.push('/scan/product/barcode'),
+                  ),
+                  const SizedBox(height: PantriBoxSpacing.lg),
+                  Text(
+                    'Or enter it manually',
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  const SizedBox(height: PantriBoxSpacing.sm),
                   TextField(
                     controller: _barcodeController,
                     keyboardType: TextInputType.number,

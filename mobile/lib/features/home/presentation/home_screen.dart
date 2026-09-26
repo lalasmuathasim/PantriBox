@@ -124,6 +124,13 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 const SizedBox(width: PantriBoxSpacing.md),
                 PantriBoxQuickAction(
+                  label: 'Scan product',
+                  subtitle: 'Check what it contains',
+                  icon: Icons.qr_code_scanner_rounded,
+                  onTap: () => context.push('/scan/product'),
+                ),
+                const SizedBox(width: PantriBoxSpacing.md),
+                PantriBoxQuickAction(
                   label: 'Compare prices',
                   subtitle: 'Preview the best plan',
                   icon: Icons.local_offer_outlined,

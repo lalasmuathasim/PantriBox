@@ -9,6 +9,7 @@ import 'package:pantribox_mobile/features/insights/presentation/insights_screen.
 import 'package:pantribox_mobile/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:pantribox_mobile/features/profile/presentation/profile_screen.dart';
 import 'package:pantribox_mobile/features/product_intelligence/presentation/product_lookup_screen.dart';
+import 'package:pantribox_mobile/features/product_intelligence/presentation/product_barcode_scan_screen.dart';
 import 'package:pantribox_mobile/features/product_intelligence/presentation/scan_hub_screen.dart';
 import 'package:pantribox_mobile/features/receipt_scan/presentation/receipt_scan_screen.dart';
 import 'package:pantribox_mobile/features/shopping_lists/presentation/create_shopping_list_screen.dart';
@@ -69,7 +70,15 @@ GoRouter createRouter(WidgetRef ref, {String initialLocation = '/onboarding'}) {
       ),
       GoRoute(
         path: '/scan/product',
-        builder: (context, state) => const ProductLookupScreen(),
+        builder: (context, state) => ProductLookupScreen(
+          initialBarcode: state.uri.queryParameters['barcode'],
+        ),
+        routes: [
+          GoRoute(
+            path: 'barcode',
+            builder: (context, state) => const ProductBarcodeScanScreen(),
+          ),
+        ],
       ),
       GoRoute(
         path: '/insights',

@@ -13,12 +13,11 @@ Let a household look up a packaged food barcode and view provider-sourced produc
 - Backend-only Open Food Facts read provider behind `ProductDataProvider`
 - Canonical product, package variant, and provenance-aware persistence
 - Structured REST lookup contract
-- Mobile Scan hub, manual barcode entry, and product-information report
+- Mobile Scan hub, Home quick action, camera barcode capture, manual barcode entry, and product-information report
 - Source freshness and incomplete-data states
 
 ## Excluded
 
-- Camera barcode scanning
 - Product-label uploads, OCR, or vision extraction
 - Product-image persistence or external image reuse
 - Health scoring, medical advice, or marketing-claim assessment
@@ -33,6 +32,11 @@ Let a household look up a packaged food barcode and view provider-sourced produc
 - Provider data is preserved with source and freshness metadata.
 - A cache hit may be returned only while fresh. Stale data may be returned only with an explicit stale status when the provider is unavailable.
 - Provider credentials and identifying headers remain backend-only.
+- Barcode capture happens on-device and only submits the detected barcode to the
+  existing PantriBox lookup endpoint. Product-label images are not captured or
+  retained in this phase.
+- The mobile scanner must request camera access through platform permissions and
+  must ignore duplicate detections after a barcode has been accepted.
 
 ## Acceptance Criteria
 
@@ -41,5 +45,7 @@ Let a household look up a packaged food barcode and view provider-sourced produc
 - An unknown barcode returns a non-error not-found state and is negatively cached for a short period.
 - Invalid barcodes receive a clear validation response.
 - Product reports display only available product information and never fabricate nutrition values or health scores.
+- Home includes a `Scan product` entry point using the existing quick-action
+  pattern, and Scan Product offers camera capture with manual entry as a fallback.
 - REST and future MCP capabilities share the same product-intelligence service boundary.
 - Unit, service, API, and Flutter widget tests cover the phase-one flow.

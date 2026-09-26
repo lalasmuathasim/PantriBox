@@ -139,6 +139,6 @@ This repository intentionally stops at a production-oriented foundation:
 - MCP-ready service boundaries
 - Initial design system, docs, ADRs, specs, and CI
 
-Barcode lookup is implemented as the first product-intelligence phase. Label OCR, camera barcode scanning, health scoring, claim analysis, and health-aware recommendations remain intentionally deferred.
+Barcode lookup and camera barcode capture are implemented as the first product-intelligence phase. Label OCR, health scoring, claim analysis, and health-aware recommendations remain intentionally deferred.
 
 Full product features are intentionally deferred to future specs and PRPs.

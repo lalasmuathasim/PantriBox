@@ -1,0 +1,17 @@
+from datetime import datetime
+
+from sqlalchemy import DateTime, ForeignKey, String, Text
+from sqlalchemy.orm import Mapped, mapped_column
+
+from app.domains.common import TimestampedModel
+
+
+class Receipt(TimestampedModel):
+    __tablename__ = "receipts"
+
+    household_id: Mapped[str] = mapped_column(ForeignKey("households.id"))
+    uploaded_by_user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
+    file_key: Mapped[str | None] = mapped_column(String(255), nullable=True)
+    image_url: Mapped[str | None] = mapped_column(String(512), nullable=True)
+    raw_ocr_text: Mapped[str | None] = mapped_column(Text, nullable=True)
+    captured_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)

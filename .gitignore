@@ -1,0 +1,39 @@
+.DS_Store
+.idea/
+.vscode/
+
+# Python
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+backend/.venv/
+backend/.python-version
+*.egg-info/
+
+# Flutter / Dart
+mobile/.dart_tool/
+mobile/.flutter-plugins
+mobile/.flutter-plugins-dependencies
+mobile/.packages
+mobile/build/
+
+# Android / iOS build outputs
+mobile/android/.gradle/
+mobile/android/app/debug/
+mobile/android/app/profile/
+mobile/android/app/release/
+mobile/ios/Flutter/Flutter.framework
+mobile/ios/Flutter/Flutter.podspec
+mobile/ios/Pods/
+
+# Environment
+.env
+backend/.env
+backend/.env.*
+mobile/.env
+
+# Database
+*.sqlite3

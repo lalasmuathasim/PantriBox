@@ -1,0 +1,22 @@
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: pantribox-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: pantribox
+      POSTGRES_USER: pantribox
+      POSTGRES_PASSWORD: pantribox
+    ports:
+      - "5432:5432"
+    volumes:
+      - pantribox_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U pantribox -d pantribox"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  pantribox_postgres_data:
+

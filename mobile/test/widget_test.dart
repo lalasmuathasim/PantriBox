@@ -121,6 +121,8 @@ void main() {
       '/scan/receipt': 'Primary workflow',
       '/scan/product/barcode': 'Scan a product barcode',
       '/insights': 'Preview containers',
+      '/insights/nutrition': 'Nutrition insights',
+      '/household': 'Household members',
       '/profile': 'PantriBox Household',
       '/sign-in': 'Sign in',
       '/sign-up': 'Create account',
@@ -137,6 +139,29 @@ void main() {
       expect(tester.takeException(), isNull);
       expect(find.text(entry.value), findsOneWidget);
     }
+  });
+
+  testWidgets('nutrition insights disclose the missing household context', (
+    tester,
+  ) async {
+    await pumpPantriBoxApp(tester, initialLocation: '/insights/nutrition');
+    await tester.pumpAndSettle();
+
+    expect(find.text('Set up your household first'), findsOneWidget);
+    expect(find.textContaining('not individual food intake'), findsOneWidget);
+  });
+
+  testWidgets('Insights opens Household Nutrition Insights', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(800, 1000));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
+    await pumpPantriBoxApp(tester, initialLocation: '/insights');
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('View nutrition insights'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Nutrition insights'), findsOneWidget);
+    expect(find.byTooltip('Back'), findsOneWidget);
   });
 
   testWidgets('theme exposes PantriBox background color', (tester) async {
@@ -179,6 +204,19 @@ void main() {
 
     expect(find.text('Scan a packaged food'), findsOneWidget);
   });
+
+  testWidgets(
+    'Home introduces Household Nutrition Insights without a fake status',
+    (tester) async {
+      await tester.binding.setSurfaceSize(const Size(800, 1000));
+      addTearDown(() => tester.binding.setSurfaceSize(null));
+      await pumpPantriBoxApp(tester, initialLocation: '/home');
+      await tester.pumpAndSettle();
+
+      expect(find.text('Household nutrition'), findsOneWidget);
+      expect(find.textContaining('Build grocery coverage'), findsOneWidget);
+    },
+  );
 
   testWidgets('new-user Home foregrounds the three primary workflows', (
     tester,

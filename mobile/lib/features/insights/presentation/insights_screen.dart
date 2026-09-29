@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pantribox_mobile/app/theme/pantribox_spacing.dart';
 import 'package:pantribox_mobile/features/insights/application/insight_fixtures.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_card.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_empty_state.dart';
+import 'package:pantribox_mobile/shared/widgets/pantribox_primary_button.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_screen_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_section_header.dart';
 
@@ -25,6 +27,20 @@ class InsightsScreen extends StatelessWidget {
             title: 'Insights',
             subtitle:
                 'This screen will later combine spending, savings, price trends, and shopping frequency.',
+          ),
+          const SizedBox(height: PantriBoxSpacing.xl),
+          PantriBoxCard(
+            child: PantriBoxEmptyState(
+              title: 'Household nutrition insights',
+              message:
+                  'See how identified grocery purchases can build a nutrition-coverage view without making intake or medical claims.',
+              icon: Icons.eco_outlined,
+              action: PantriBoxPrimaryButton(
+                label: 'View nutrition insights',
+                icon: Icons.arrow_forward_rounded,
+                onPressed: () => context.push('/insights/nutrition'),
+              ),
+            ),
           ),
           const SizedBox(height: PantriBoxSpacing.xl),
           const PantriBoxSectionHeader(

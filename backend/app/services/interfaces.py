@@ -39,3 +39,16 @@ class ShoppingOptimizationRequest:
 
 class ShoppingOptimizationService(Protocol):
     def optimize(self, request: ShoppingOptimizationRequest) -> dict[str, object]: ...
+
+
+@dataclass(slots=True)
+class ShoppingListRecommendationItem:
+    product_id: str | None
+    raw_name: str
+    reason: str
+
+
+class ShoppingListRecommendationService(Protocol):
+    def add_recommendations(
+        self, shopping_list_id: str, items: list[ShoppingListRecommendationItem]
+    ) -> None: ...

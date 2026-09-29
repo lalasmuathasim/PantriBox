@@ -25,6 +25,9 @@ class PurchaseItem(TimestampedModel):
 
     purchase_id: Mapped[str] = mapped_column(ForeignKey("purchases.id"))
     product_id: Mapped[str | None] = mapped_column(ForeignKey("products.id"), nullable=True)
+    product_variant_id: Mapped[str | None] = mapped_column(
+        ForeignKey("product_variants.id"), nullable=True
+    )
     raw_description: Mapped[str] = mapped_column(String(255))
     quantity: Mapped[float | None] = mapped_column(QuantityColumn, nullable=True)
     unit: Mapped[str | None] = mapped_column(String(32), nullable=True)

@@ -5,6 +5,8 @@ import 'package:pantribox_mobile/core/widgets/pantribox_shell.dart';
 import 'package:pantribox_mobile/features/authentication/presentation/sign_in_screen.dart';
 import 'package:pantribox_mobile/features/authentication/presentation/sign_up_screen.dart';
 import 'package:pantribox_mobile/features/home/presentation/home_screen.dart';
+import 'package:pantribox_mobile/features/household_nutrition/presentation/household_members_screen.dart';
+import 'package:pantribox_mobile/features/household_nutrition/presentation/household_nutrition_screen.dart';
 import 'package:pantribox_mobile/features/insights/presentation/insights_screen.dart';
 import 'package:pantribox_mobile/features/onboarding/presentation/onboarding_screen.dart';
 import 'package:pantribox_mobile/features/profile/presentation/profile_screen.dart';
@@ -93,6 +95,18 @@ GoRouter createRouter(WidgetRef ref, {String initialLocation = '/onboarding'}) {
         builder: (context, state) => const PantriBoxShell(
           currentLocation: '/profile',
           child: ProfileScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/household',
+        builder: (context, state) => HouseholdMembersScreen(
+          householdId: state.uri.queryParameters['householdId'],
+        ),
+      ),
+      GoRoute(
+        path: '/insights/nutrition',
+        builder: (context, state) => HouseholdNutritionScreen(
+          householdId: state.uri.queryParameters['householdId'],
         ),
       ),
     ],

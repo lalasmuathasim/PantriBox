@@ -38,6 +38,8 @@ Application + Domain Services
 - Purchase and receipt workflows
 - Product normalization boundaries
 - Product intelligence lookup, provenance, and freshness boundaries
+- Household-member management and deterministic nutrition-purchase aggregation
+- Nutrition reference-methodology and recommendation-candidate boundaries
 - Price observation creation
 - Shopping optimization orchestration boundaries
 
@@ -76,3 +78,5 @@ Application + Domain Services
 - Price observations support multiple sources and confidence values
 - External providers are hidden behind explicit interfaces
 - Product nutrition and ingredient data is source-backed; it is not a health score or medical assessment
+- Household nutrition insights analyze purchases, not individual consumption;
+  approved reference methodology is required before quantitative adequacy

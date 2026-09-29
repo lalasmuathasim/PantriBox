@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:pantribox_mobile/app/theme/pantribox_spacing.dart';
 import 'package:pantribox_mobile/core/api/system_api_repository.dart';
 import 'package:pantribox_mobile/shared/extensions/pantribox_theme_extension.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_card.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_loading_state.dart';
+import 'package:pantribox_mobile/shared/widgets/pantribox_primary_button.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_screen_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_section_header.dart';
 import 'package:pantribox_mobile/shared/widgets/pantribox_status_chip.dart';
@@ -66,6 +68,31 @@ class ProfileScreen extends ConsumerWidget {
                       ),
                     ],
                   ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: PantriBoxSpacing.xl),
+          PantriBoxCard(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Household profile',
+                  style: Theme.of(context).textTheme.titleLarge,
+                ),
+                const SizedBox(height: PantriBoxSpacing.xs),
+                Text(
+                  'Manage household members for future grocery coverage insights.',
+                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                    color: palette.textSecondary,
+                  ),
+                ),
+                const SizedBox(height: PantriBoxSpacing.md),
+                PantriBoxPrimaryButton(
+                  label: 'Manage household',
+                  icon: Icons.groups_outlined,
+                  onPressed: () => context.push('/household'),
                 ),
               ],
             ),

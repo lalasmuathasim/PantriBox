@@ -316,6 +316,50 @@ class _HouseholdSummary extends StatelessWidget {
               Expanded(child: metrics.last),
             ],
           ),
+        const SizedBox(height: PantriBoxSpacing.md),
+        PantriBoxCard(
+          padding: const EdgeInsets.all(PantriBoxSpacing.md),
+          child: Row(
+            children: [
+              Container(
+                width: 42,
+                height: 42,
+                decoration: BoxDecoration(
+                  color: context.pantriBoxTheme.primarySoft,
+                  borderRadius: BorderRadius.circular(PantriBoxRadius.sm),
+                ),
+                child: Icon(
+                  Icons.eco_outlined,
+                  color: context.pantriBoxTheme.primary,
+                ),
+              ),
+              const SizedBox(width: PantriBoxSpacing.md),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Household nutrition',
+                      style: Theme.of(context).textTheme.titleMedium,
+                    ),
+                    const SizedBox(height: PantriBoxSpacing.xs),
+                    Text(
+                      'Build grocery coverage from identified purchases.',
+                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                        color: context.pantriBoxTheme.textSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              IconButton(
+                tooltip: 'View nutrition insights',
+                onPressed: () => context.push('/insights/nutrition'),
+                icon: const Icon(Icons.arrow_forward_rounded),
+              ),
+            ],
+          ),
+        ),
       ],
     );
   }

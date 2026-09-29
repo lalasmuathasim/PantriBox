@@ -49,3 +49,10 @@ Let a household look up a packaged food barcode and view provider-sourced produc
   pattern, and Scan Product offers camera capture with manual entry as a fallback.
 - REST and future MCP capabilities share the same product-intelligence service boundary.
 - Unit, service, API, and Flutter widget tests cover the phase-one flow.
+
+## Household Nutrition Integration
+
+The same source-backed declared nutrition representation is consumed by
+Household Nutrition Insights. Current persisted fields support only the
+declared nutrients available in this phase; iron, calcium, vitamins, and
+reference-based nutrition assessments are not implemented.

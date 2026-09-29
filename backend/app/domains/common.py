@@ -59,6 +59,17 @@ class ProductDataVerificationStatus(StrEnum):
     USER_CORRECTED = "user_corrected"
 
 
+class HouseholdMemberSex(StrEnum):
+    FEMALE = "female"
+    MALE = "male"
+    UNSPECIFIED = "unspecified"
+
+
+class NutritionReferenceReadiness(StrEnum):
+    NOT_APPROVED = "not_approved"
+    APPROVED = "approved"
+
+
 class BarcodeLookupState(StrEnum):
     FOUND = "found"
     NOT_FOUND = "not_found"

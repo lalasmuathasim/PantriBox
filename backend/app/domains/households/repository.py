@@ -5,8 +5,12 @@ from typing import Protocol
 from sqlalchemy import select
 from sqlalchemy.orm import Session
 
-from app.domains.households.contracts import HouseholdMemberInput, HouseholdMemberRecord
-from app.domains.households.models import HouseholdMember
+from app.domains.households.contracts import (
+    HouseholdMemberInput,
+    HouseholdMemberRecord,
+    HouseholdMembershipRecord,
+)
+from app.domains.households.models import HouseholdMember, HouseholdMembership
 
 
 class HouseholdMemberRepository(Protocol):
@@ -23,6 +27,12 @@ class HouseholdMemberRepository(Protocol):
     def update_member(
         self, household_id: str, member_id: str, member: HouseholdMemberInput
     ) -> HouseholdMemberRecord | None: ...
+
+
+class HouseholdMembershipRepository(Protocol):
+    def find_active_membership(
+        self, household_id: str, user_id: str
+    ) -> HouseholdMembershipRecord | None: ...
 
 
 class SqlAlchemyHouseholdMemberRepository:
@@ -91,3 +101,27 @@ def _to_record(member: HouseholdMember) -> HouseholdMemberRecord:
         sex=member.sex,
         is_active=member.is_active,
     )
+
+
+class SqlAlchemyHouseholdMembershipRepository:
+    def __init__(self, session: Session) -> None:
+        self._session = session
+
+    def find_active_membership(
+        self, household_id: str, user_id: str
+    ) -> HouseholdMembershipRecord | None:
+        membership = self._session.scalar(
+            select(HouseholdMembership).where(
+                HouseholdMembership.household_id == household_id,
+                HouseholdMembership.user_id == user_id,
+                HouseholdMembership.is_active.is_(True),
+            )
+        )
+        if membership is None:
+            return None
+        return HouseholdMembershipRecord(
+            household_id=membership.household_id,
+            user_id=membership.user_id,
+            role=membership.role,
+            is_active=membership.is_active,
+        )

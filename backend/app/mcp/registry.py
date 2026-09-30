@@ -22,6 +22,30 @@ class McpCapabilityRegistry:
                 "name": "get_household_purchase_history",
                 "description": "Future household purchase history capability for agents.",
             },
+            {
+                "name": "get_spending_summary",
+                "description": "Future actor-authorized household spending summary.",
+            },
+            {
+                "name": "get_purchase_trends",
+                "description": "Future actor-authorized household purchase trends.",
+            },
+            {
+                "name": "get_household_nutrition_coverage",
+                "description": "Future deterministic household grocery nutrition coverage.",
+            },
+            {
+                "name": "get_product_nutrition",
+                "description": "Future source-backed product nutrition capability.",
+            },
+            {
+                "name": "find_nutrition_opportunities",
+                "description": "Future methodology-governed nutrition opportunities.",
+            },
+            {
+                "name": "add_items_to_shopping_list",
+                "description": "Future actor-authorized shopping-list mutation capability.",
+            },
         ]
 
 

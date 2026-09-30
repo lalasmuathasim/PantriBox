@@ -158,17 +158,10 @@ class _PlanShoppingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final isContinuing = overview.hasActiveShoppingList;
-    final itemCount = overview.activeListItemCount;
-    final completedItemCount = overview.completedListItemCount;
-    final description = isContinuing
-        ? '${overview.activeListName} · $itemCount items${completedItemCount == null ? '' : ' · $completedItemCount checked'}'
-        : 'Create a list and find where to buy for less.';
-
     return PantriBoxWorkflowCard(
-      title: isContinuing ? 'Continue shopping' : 'Plan your shopping',
-      description: description,
-      actionLabel: isContinuing ? 'Continue list' : 'Start a list',
+      title: 'Go shopping with list',
+      description:
+          'Create a new list or use an existing one. Your lists help PantriBox understand what you buy and improve your shopping insights.',
       emphasis: PantriBoxWorkflowCardEmphasis.primary,
       visual: _WorkflowVisual(
         icon: Icons.shopping_basket_outlined,
@@ -176,17 +169,58 @@ class _PlanShoppingCard extends StatelessWidget {
         accent: context.pantriBoxTheme.primary,
         size: 82,
       ),
-      onTap: () =>
-          context.push(isContinuing ? '/lists/weekly-basics' : '/lists/create'),
-      footer: isContinuing
-          ? Align(
-              alignment: Alignment.centerLeft,
-              child: TextButton(
-                onPressed: () => context.push('/lists/create'),
-                child: const Text('Start a new list'),
-              ),
-            )
-          : null,
+      onTap: () => context.push(
+        overview.hasActiveShoppingList
+            ? '/lists/weekly-basics'
+            : '/lists/create',
+      ),
+      footer: _ShoppingListActions(
+        onUseExistingList: () => context.push('/lists'),
+        onCreateNewList: () => context.push('/lists/create'),
+      ),
+    );
+  }
+}
+
+class _ShoppingListActions extends StatelessWidget {
+  const _ShoppingListActions({
+    required this.onUseExistingList,
+    required this.onCreateNewList,
+  });
+
+  final VoidCallback onUseExistingList;
+  final VoidCallback onCreateNewList;
+
+  @override
+  Widget build(BuildContext context) {
+    final palette = context.pantriBoxTheme;
+    final actionStyle = TextButton.styleFrom(
+      foregroundColor: palette.primary,
+      minimumSize: const Size(48, 48),
+      padding: const EdgeInsets.symmetric(
+        horizontal: PantriBoxSpacing.sm,
+        vertical: PantriBoxSpacing.sm,
+      ),
+      textStyle: Theme.of(context).textTheme.titleMedium,
+    );
+
+    return Wrap(
+      spacing: PantriBoxSpacing.sm,
+      runSpacing: PantriBoxSpacing.xs,
+      children: [
+        TextButton.icon(
+          onPressed: onUseExistingList,
+          icon: const Icon(Icons.format_list_bulleted_rounded, size: 18),
+          label: const Text('Use an existing list'),
+          style: actionStyle,
+        ),
+        TextButton.icon(
+          onPressed: onCreateNewList,
+          icon: const Icon(Icons.add_rounded, size: 18),
+          label: const Text('Create new list'),
+          style: actionStyle,
+        ),
+      ],
     );
   }
 }

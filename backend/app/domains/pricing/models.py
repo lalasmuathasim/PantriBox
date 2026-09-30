@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from sqlalchemy import DateTime, ForeignKey, String
+from sqlalchemy import DateTime, ForeignKey, Index, String
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.domains.common import (
@@ -14,8 +14,22 @@ from app.domains.common import (
 
 class PriceObservation(TimestampedModel):
     __tablename__ = "price_observations"
+    __table_args__ = (
+        Index(
+            "ix_price_observations_product_variant_observed_at", "product_variant_id", "observed_at"
+        ),
+        Index("ix_price_observations_product_observed_at", "product_id", "observed_at"),
+        Index(
+            "ix_price_observations_store_location_observed_at",
+            "store_location_id",
+            "observed_at",
+        ),
+    )
 
     product_id: Mapped[str | None] = mapped_column(ForeignKey("products.id"), nullable=True)
+    product_variant_id: Mapped[str | None] = mapped_column(
+        ForeignKey("product_variants.id"), nullable=True
+    )
     purchase_item_id: Mapped[str | None] = mapped_column(
         ForeignKey("purchase_items.id"), nullable=True
     )

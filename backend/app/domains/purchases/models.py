@@ -3,7 +3,13 @@ from datetime import datetime
 from sqlalchemy import DateTime, ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.domains.common import MoneyColumn, QuantityColumn, TimestampedModel
+from app.domains.common import (
+    ConfidenceColumn,
+    MoneyColumn,
+    PurchaseSource,
+    QuantityColumn,
+    TimestampedModel,
+)
 
 
 class Purchase(TimestampedModel):
@@ -18,6 +24,8 @@ class Purchase(TimestampedModel):
     purchased_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), default=datetime.utcnow)
     currency: Mapped[str] = mapped_column(String(3), default="INR")
     total_amount: Mapped[float | None] = mapped_column(MoneyColumn, nullable=True)
+    recorded_by_user_id: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    source: Mapped[str] = mapped_column(String(32), default=PurchaseSource.RECEIPT.value)
 
 
 class PurchaseItem(TimestampedModel):
@@ -33,5 +41,9 @@ class PurchaseItem(TimestampedModel):
     unit: Mapped[str | None] = mapped_column(String(32), nullable=True)
     price: Mapped[float] = mapped_column(MoneyColumn)
     unit_price: Mapped[float | None] = mapped_column(MoneyColumn, nullable=True)
+    match_source: Mapped[str | None] = mapped_column(String(32), nullable=True)
+    match_confidence: Mapped[float | None] = mapped_column(ConfidenceColumn, nullable=True)
+    matched_by_user_id: Mapped[str | None] = mapped_column(ForeignKey("users.id"), nullable=True)
+    source_line_reference: Mapped[str | None] = mapped_column(String(120), nullable=True)
 
     purchase = relationship("Purchase")

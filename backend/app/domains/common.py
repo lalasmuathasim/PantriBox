@@ -65,6 +65,67 @@ class HouseholdMemberSex(StrEnum):
     UNSPECIFIED = "unspecified"
 
 
+class PlatformRole(StrEnum):
+    USER = "user"
+    ADMIN = "admin"
+    SUPER_ADMIN = "super_admin"
+
+
+class AccountStatus(StrEnum):
+    ACTIVE = "active"
+    SUSPENDED = "suspended"
+    DISABLED = "disabled"
+
+
+class AuthIdentityProvider(StrEnum):
+    EMAIL = "email"
+    OIDC = "oidc"
+    APPLE = "apple"
+    GOOGLE = "google"
+    MOBILE_OTP = "mobile_otp"
+
+
+class HouseholdRole(StrEnum):
+    OWNER = "owner"
+    ADMIN = "admin"
+    MEMBER = "member"
+    VIEWER = "viewer"
+
+
+class HouseholdInvitationStatus(StrEnum):
+    PENDING = "pending"
+    ACCEPTED = "accepted"
+    REVOKED = "revoked"
+    EXPIRED = "expired"
+
+
+class ReceiptSource(StrEnum):
+    CAMERA = "camera"
+    IMAGE_UPLOAD = "image_upload"
+    MANUAL_ENTRY = "manual_entry"
+
+
+class ReceiptExtractionStatus(StrEnum):
+    PENDING = "pending"
+    EXTRACTED = "extracted"
+    FAILED = "failed"
+    USER_REVIEWED = "user_reviewed"
+
+
+class PurchaseSource(StrEnum):
+    RECEIPT = "receipt"
+    MANUAL_ENTRY = "manual_entry"
+
+
+class ProductMatchSource(StrEnum):
+    OCR = "ocr"
+    BARCODE = "barcode"
+    PROVIDER = "provider"
+    USER_CONFIRMED = "user_confirmed"
+    USER_CORRECTED = "user_corrected"
+    MANUAL = "manual"
+
+
 class NutritionReferenceReadiness(StrEnum):
     NOT_APPROVED = "not_approved"
     APPROVED = "approved"

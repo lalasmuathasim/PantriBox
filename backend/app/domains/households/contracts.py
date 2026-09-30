@@ -20,3 +20,11 @@ class HouseholdMemberInput:
     date_of_birth: date | None = None
     sex: str | None = None
     is_active: bool = True
+
+
+@dataclass(frozen=True, slots=True)
+class HouseholdMembershipRecord:
+    household_id: str
+    user_id: str
+    role: str
+    is_active: bool

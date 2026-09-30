@@ -10,17 +10,19 @@ class PantriBoxWorkflowCard extends StatelessWidget {
   const PantriBoxWorkflowCard({
     required this.title,
     required this.description,
-    required this.actionLabel,
     required this.visual,
     required this.onTap,
     super.key,
+    this.actionLabel,
     this.emphasis = PantriBoxWorkflowCardEmphasis.secondary,
     this.footer,
   });
 
   final String title;
   final String description;
-  final String actionLabel;
+
+  /// Optional inline action copy. Cards with dedicated footer controls omit it.
+  final String? actionLabel;
   final Widget visual;
   final VoidCallback onTap;
   final PantriBoxWorkflowCardEmphasis emphasis;
@@ -67,7 +69,7 @@ class _PrimaryWorkflowContent extends StatelessWidget {
 
   final String title;
   final String description;
-  final String actionLabel;
+  final String? actionLabel;
   final Widget visual;
   final Widget? footer;
 
@@ -95,20 +97,26 @@ class _PrimaryWorkflowContent extends StatelessWidget {
             context,
           ).textTheme.bodyLarge?.copyWith(color: palette.textSecondary),
         ),
-        const SizedBox(height: PantriBoxSpacing.md),
-        Wrap(
-          crossAxisAlignment: WrapCrossAlignment.center,
-          spacing: PantriBoxSpacing.xs,
-          children: [
-            Text(
-              actionLabel,
-              style: Theme.of(
-                context,
-              ).textTheme.titleMedium?.copyWith(color: palette.primary),
-            ),
-            Icon(Icons.arrow_forward_rounded, color: palette.primary, size: 18),
-          ],
-        ),
+        if (actionLabel != null) ...[
+          const SizedBox(height: PantriBoxSpacing.md),
+          Wrap(
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: PantriBoxSpacing.xs,
+            children: [
+              Text(
+                actionLabel!,
+                style: Theme.of(
+                  context,
+                ).textTheme.titleMedium?.copyWith(color: palette.primary),
+              ),
+              Icon(
+                Icons.arrow_forward_rounded,
+                color: palette.primary,
+                size: 18,
+              ),
+            ],
+          ),
+        ],
         if (footer != null) ...[
           const SizedBox(height: PantriBoxSpacing.xs),
           footer!,
@@ -128,7 +136,7 @@ class _SecondaryWorkflowContent extends StatelessWidget {
 
   final String title;
   final String description;
-  final String actionLabel;
+  final String? actionLabel;
   final Widget visual;
 
   @override

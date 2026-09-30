@@ -230,7 +230,7 @@ void main() {
     );
     await tester.pumpAndSettle();
 
-    expect(find.text('Plan your shopping'), findsOneWidget);
+    expect(find.text('Go shopping with list'), findsOneWidget);
     expect(find.text('Scan a receipt'), findsOneWidget);
     expect(find.text('Check a product'), findsOneWidget);
     expect(find.text('Your household insights'), findsOneWidget);
@@ -250,7 +250,17 @@ void main() {
       homeOverview: newUser,
     );
     await tester.pumpAndSettle();
-    await tester.tap(find.text('Plan your shopping'));
+    await tester.tap(find.text('Use an existing list'));
+    await tester.pumpAndSettle();
+    expect(find.text('Shopping lists'), findsOneWidget);
+
+    await pumpPantriBoxApp(
+      tester,
+      initialLocation: '/home',
+      homeOverview: newUser,
+    );
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Create new list'));
     await tester.pumpAndSettle();
     expect(find.text('Create shopping list'), findsOneWidget);
 
@@ -281,9 +291,15 @@ void main() {
     await pumpPantriBoxApp(tester, initialLocation: '/home');
     await tester.pumpAndSettle();
 
-    expect(find.text('Continue shopping'), findsOneWidget);
-    expect(find.text('Weekend stock-up · 8 items · 3 checked'), findsOneWidget);
-    expect(find.text('Start a new list'), findsOneWidget);
+    expect(find.text('Go shopping with list'), findsOneWidget);
+    expect(
+      find.text(
+        'Create a new list or use an existing one. Your lists help PantriBox understand what you buy and improve your shopping insights.',
+      ),
+      findsOneWidget,
+    );
+    expect(find.text('Use an existing list'), findsOneWidget);
+    expect(find.text('Create new list'), findsOneWidget);
     await tester.scrollUntilVisible(find.text('₹18,240'), 250);
     expect(find.text('₹18,240'), findsOneWidget);
     expect(find.text('₹1,420'), findsOneWidget);
@@ -295,6 +311,10 @@ void main() {
     await pumpPantriBoxApp(tester, initialLocation: '/home');
     await tester.pumpAndSettle();
 
+    await tester.scrollUntilVisible(
+      find.byKey(const Key('home-secondary-workflows')),
+      250,
+    );
     final workflows = tester.widget<Flex>(
       find.byKey(const Key('home-secondary-workflows')),
     );

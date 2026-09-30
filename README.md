@@ -87,18 +87,23 @@ uvicorn app.main:app --reload
 
 ## Database setup
 
-```bash
-docker compose up -d db
-```
-
-Use `PANTRIBOX_DATABASE_URL` from `.env.example` or your local `.env`.
-
-Apply the versioned schema after starting PostgreSQL:
+PantriBox's normal local setup uses its own PostgreSQL 16 container and
+persistent volume. It is exposed only at `127.0.0.1:5433` and does not touch
+other projects' containers or volumes. Create ignored backend configuration
+from the safe placeholders, replace the database URL placeholder with a local
+secret, then start the isolated service:
 
 ```bash
+cp .env.example backend/.env
+docker compose --profile standalone-db up -d
 cd backend
+source .venv/bin/activate
 alembic upgrade head
+python -m app.scripts.seed_development_users
 ```
+
+See [database operations](/Users/lalasmuathasim/Works/PantriBox/docs/architecture/database-operations.md)
+for the provisioning, migration, seed, and backup/restore lifecycle.
 
 ## Tests
 

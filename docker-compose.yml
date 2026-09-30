@@ -1,22 +1,26 @@
 services:
   db:
+    # This is an isolated PantriBox server with its own volume. It never
+    # attaches to or repairs a shared PostgreSQL container or volume.
+    profiles: ["standalone-db"]
     image: postgres:16-alpine
-    container_name: pantribox-db
+    container_name: pantribox-standalone-db
     restart: unless-stopped
-    environment:
-      POSTGRES_DB: pantribox
-      POSTGRES_USER: pantribox
-      POSTGRES_PASSWORD: pantribox
+    env_file:
+      - ./backend/.env
+    entrypoint: ["/bin/sh", "/usr/local/bin/pantribox-postgres-entrypoint.sh"]
+    command: ["postgres"]
     ports:
-      - "5432:5432"
+      - "127.0.0.1:5433:5432"
     volumes:
-      - pantribox_postgres_data:/var/lib/postgresql/data
+      - pantribox_standalone_postgres_data:/var/lib/postgresql/data
+      - ./scripts/docker/pantribox-postgres-entrypoint.sh:/usr/local/bin/pantribox-postgres-entrypoint.sh:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U pantribox -d pantribox"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 10s
       timeout: 5s
       retries: 5
 
 volumes:
-  pantribox_postgres_data:
-
+  pantribox_standalone_postgres_data:
+    name: pantribox_standalone_postgres_data

@@ -72,8 +72,10 @@ nutrition-reference methodology exists in the repository.
 
 ## Security Considerations
 
-- Household data is sensitive. The bootstrap has no authentication boundary, so
-  production authorization remains a prerequisite for exposing live data.
+- Household data is sensitive. Development password authentication exists, but
+  an authenticated-principal dependency has not yet been applied to
+  household-scoped APIs; production authorization remains a prerequisite for
+  exposing live data.
 - Do not retain medical details, receipt images, or raw provider payloads in
   nutrition responses.
 

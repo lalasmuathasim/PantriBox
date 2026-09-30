@@ -22,7 +22,7 @@ class SignUpScreen extends StatelessWidget {
               eyebrow: 'Start your household setup',
               title: 'Create account',
               subtitle:
-                  'This placeholder reserves the flow for account creation, verification, and provider-backed sign-up without locking us into a premature auth implementation.',
+                  'Account creation is not available in this development build. Use a configured development account to sign in.',
             ),
             const SizedBox(height: PantriBoxSpacing.xl),
             const PantriBoxStatusChip(
@@ -48,9 +48,9 @@ class SignUpScreen extends StatelessWidget {
             ),
             const SizedBox(height: PantriBoxSpacing.lg),
             PantriBoxPrimaryButton(
-              label: 'Continue',
-              icon: Icons.arrow_forward_rounded,
-              onPressed: () => context.go('/home'),
+              label: 'Return to sign in',
+              icon: Icons.login_rounded,
+              onPressed: () => context.go('/sign-in'),
             ),
           ],
         ),

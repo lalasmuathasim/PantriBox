@@ -13,6 +13,9 @@ on:
 jobs:
   backend:
     runs-on: ubuntu-latest
+    env:
+      # Unit tests do not connect to PostgreSQL, but configuration must remain explicit.
+      PANTRIBOX_DATABASE_URL: postgresql+psycopg://test_user:test_password@localhost:5432/pantribox_test
 
     defaults:
       run:
@@ -46,4 +49,3 @@ jobs:
         run: |
           . .venv/bin/activate
           pytest
-
